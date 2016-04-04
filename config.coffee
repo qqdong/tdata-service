@@ -12,7 +12,7 @@ stageConfig =
     port: 6102
     logDir: "/data1/logs/tdata-node-service"
     useHttps: 0
-    exportExcelPath:''
+    exportExcelPath:'/data1/files/tdata-service/exportExcel'
 
 config =
   port: 80

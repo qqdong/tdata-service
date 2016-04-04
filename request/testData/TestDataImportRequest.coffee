@@ -16,7 +16,7 @@ class TestDataImportRequest extends BaseRequest
 
   _execute: ->
     request = this
-    ExcelProcess.parse(request.file.path)
+    ExcelProcess.parse(request.params.file.path)
     .then (excelRows)->
       console.log excelRows
       #TestDataFactory.bulkAdd()

@@ -7,8 +7,8 @@ class BaseRequest
     if not req? or not req.body?
       throw ErrorCode.commonError.parameterError
 
-    if not (req.get('Auth-Api-Key')?)
-      throw ErrorCode.userError.apiKeyNotFond
+    #if not (req.get('Auth-Api-Key')?)
+    #  throw ErrorCode.userError.apiKeyNotFond
 
   render: ->
     request = this
