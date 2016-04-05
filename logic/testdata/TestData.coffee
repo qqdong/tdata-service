@@ -1,5 +1,6 @@
-testDataTable=require('../../table/TestData.coffee')
 moment=require('moment')
+
+testDataTable=require('../../table/TestData.coffee')
 
 class TestData
   constructor:()->
@@ -37,8 +38,10 @@ class TestData
     processDate=@getProcessDate()
     return moment(processDate).format('YYYY-MM-DD HH:mm:ss')
 
-
   getIsDownload: ()->
     return @tableTestData.getDataValue('is_download')
+
+  updateStatus:(name,status,process_date)->
+    testDataTable.updateTestData(name,status,process_date)
 
 exports.TestData=TestData

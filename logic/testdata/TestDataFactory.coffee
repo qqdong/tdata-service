@@ -2,6 +2,7 @@ whenjs=require('when')
 
 testDataTable=require('../../table/TestData.coffee')
 TestDataModel=require('./TestData.coffee').TestData
+errorCode=require('../../lib/error_code.coffee')
 
 class  TestDataFactory
   constructor:()->
@@ -26,6 +27,12 @@ class  TestDataFactory
 
   @getNextNewData:()->
     testDataTable.findNextNewData()
-
+    .then (tableTestData)->
+      if not tableTestData?
+        return null
+      else
+        TestDataModel model = new TestDataModel()
+        model.setTestDataTable(tableTestData)
+        return model
 
 exports.TestDataFactory=TestDataFactory

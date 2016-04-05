@@ -1,9 +1,11 @@
 Sequelize = require 'sequelize'
 whenjs = require 'when'
+cls = require('continuation-local-storage')
 
 Table_Default_Config = require './table_default_config'
 DB = require './tdata_sequelize.coffee'
-Status = require '../logic/testdata/Status.coffee'
+Status = require('../logic/testdata/Status.coffee').Status
+errorCode=require '../lib/error_code.coffee'
 
 fields = {}
 
@@ -57,9 +59,17 @@ tableTestData.sync()
 
 ##测试数据基本操作#######################################
 
+getByName = exports.getByName = (name)->
+  whenjs().then ()->
+    tableTestData.findOne
+      where:
+        name: name
+
+
 #批量添加
 exports.bulkAdd = (params)->
-  tableTestData.bulkCreate params
+  tableTestData.bulkCreate params,
+    ignoreDuplicates:true #name是唯一索引，已存在的name不进行添加
 
 #获取下一条未处理数据
 exports.findNextNewData = ()->
@@ -69,6 +79,11 @@ exports.findNextNewData = ()->
   find_options.order = [
     ['id', 'ASC']
   ]
+  #for update
+  transaction = cls.getNamespace('tdata').get('transaction')
+  if transaction?
+    find_options.lock = transaction.LOCK.UPDATE
+
 
   whenjs().then ()->
     tableTestData.findOne find_options
@@ -98,3 +113,21 @@ exports.findProcessedData = (beginTime, endTime)->
     tableTestData.findAll find_options
   .then (result)->
     return result
+
+#更新
+exports.updateTestData= (name,status,processDate)->
+  whenjs().then ()->
+    getByName(name)
+  .then (dbTestData)->
+    if  not dbTestData?
+      throw errorCode.testDataError.nameNoExist
+    updateFields = []
+    if status?
+      dbTestData.status = status
+      updateFields.push "status"
+    if processDate?
+      dbTestData.process_date = processDate
+      updateFields.push "process_date"
+
+    dbTestData.save
+      fields: updateFields

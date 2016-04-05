@@ -8,12 +8,8 @@
 
 #2.业务错误码
 #10000-10999 用户
-#20000-20999 作品
-#30000-30999 需求
-#40000-40999 订单
-#50000-50999 收益
-#60000-60999 拼图
-#90000-90999 其他(微博，短信，阿里云等)
+#20000-20999 测试数据
+
 #后续依次扩展，第一位超过9时，接着是11000，12000......12999,13000......99999
 
 
@@ -29,6 +25,12 @@ exports.commonError =
   notFond: new error 404, '请求资源不存在'
   internalError: new error 500, '服务器内部错误'
   catalogCacheUpdateFailedError: new error 601, '分类缓存更新失败'
+
+exports.testDataError=
+  nameNoExist:new error 20000,'name不存在'
+  notEnoughData:new error 20001,'没有足够的测试数据'
+  statusError:new error 20002,'数据状态不正确'
+  excelFormatError:new error 20003,'Excel格式不正确'
 
 
 #设置为不可修改

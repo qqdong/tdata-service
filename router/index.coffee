@@ -25,7 +25,7 @@ router.use middleware.allowCrossDomain
 
 #路由配置
 require("./init_sequelize.coffee")
-require("../test/test_index.coffee")
+#require("../test/test_index.coffee")
 require("../logic/job/job_index.coffee")
 
 router.use "/testData",require("./testData.coffee")
