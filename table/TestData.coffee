@@ -59,7 +59,7 @@ tableTestData.sync()
 
 #批量添加
 exports.bulkAdd = (params)->
-  tableTestData.bulkAdd params
+  tableTestData.bulkCreate params
 
 #获取下一条未处理数据
 exports.findNextNewData = ()->
