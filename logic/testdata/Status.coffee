@@ -7,5 +7,6 @@ class Status
     Processing: 1 #处理中
     Successed: 2 #处理成功
     Failed: 3 #处理失败
+    Slow: 4 #处理慢
 
-exports.Status=Status
+exports.Status = Status

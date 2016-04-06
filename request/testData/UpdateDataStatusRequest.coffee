@@ -22,7 +22,7 @@ class UpdateDataStatusRequest extends BaseRequest
     @status=params.status
     @process_date=params.process_date
     throw  errorCode.commonError.parameterError unless not Validator.isNullOrEmpty(@name, @status, @process_date)
-    throw  errorCode.testDataError.statusError unless  parseInt(@status)==TestDataStatus.Status.Successed or parseInt(@status)==TestDataStatus.Status.Failed
+    throw  errorCode.testDataError.statusError unless  parseInt(@status)==TestDataStatus.Status.Successed or parseInt(@status)==TestDataStatus.Status.Failed or parseInt(@status)==TestDataStatus.Status.Slow
 
 
   _execute: ->
