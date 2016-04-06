@@ -3,6 +3,7 @@ moment = require 'moment'
 whenjs=require 'when'
 
 TestDataFactory = require('../testdata/TestDataFactory.coffee').TestDataFactory
+DayExcelRecordFactory=require('../dayExcelRecord/DayExcelRecordFactory.coffee').DayExcelRecordFactory
 ExcelProcess = require('../testdata/ExcelProcess.coffee').ExcelProcess
 config = require('../../config.coffee')
 
@@ -18,7 +19,8 @@ schedule.scheduleJob '0 30 0 * * *', ()->
     endTime = moment().minutes(0)
     beginTime = moment().add(-1, 'days').minutes(0)
     dayStr = beginTime.format('YYYY-MM-DD')
-    filePath = config.exportExcelPath + "/testDataOfDay_" + dayStr + ".xlsx"
+    fileName="testDataOfDay_" + dayStr + ".xlsx"
+    filePath = config.exportExcelPath + "/"+fileName
 
     TestDataFactory.getProcessedData(beginTime.format('YYYY-MM-DD'), endTime.format('YYYY-MM-DD'))
     .then (records)->
@@ -34,3 +36,5 @@ schedule.scheduleJob '0 30 0 * * *', ()->
         rows.push row
     .then ()->
       ExcelProcess.save(filePath,rows)
+    .then ()-> #保存到数据库
+      DayExcelRecordFactory.add(dayStr,fileName)

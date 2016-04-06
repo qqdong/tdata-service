@@ -2,6 +2,7 @@
 
 express = require("express")
 require('../table/TestData.coffee')
+require('../table/DayExcelRecord.coffee')
 
 router = express.Router()
 
