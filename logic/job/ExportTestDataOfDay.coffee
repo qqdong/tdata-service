@@ -9,7 +9,7 @@ config = require('../../config.coffee')
 
 #每天中午12点执行 '0 0 12 * * *'
 #生成之前24小时内被处理的测试数据，包括状态为successed和failed的数据
-schedule.scheduleJob '0 15 20 * * *', ()->
+schedule.scheduleJob '0 0 12 * * *', ()->
   console.log 'export testData of day execute ......'
   beginTime = null
   endTime = null
