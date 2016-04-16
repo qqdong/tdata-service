@@ -41,7 +41,7 @@ class TestData
   getIsDownload: ()->
     return @tableTestData.getDataValue('is_download')
 
-  updateStatus:(name,status,process_date)->
-    testDataTable.updateTestData(name,status,process_date)
+  updateStatus:(name,status,process_date,clientId)->
+    testDataTable.updateTestData(name,status,process_date,clientId)
 
 exports.TestData=TestData

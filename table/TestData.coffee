@@ -48,6 +48,11 @@ fields.process_date =
   allowNull: true
   defaultValue: null
 
+#client_id
+fields.client_id =
+  type: Sequelize.STRING 100
+  allowNull: true
+
 fields.is_download =
   type: Sequelize.INTEGER 1
   allowNull: false
@@ -115,7 +120,7 @@ exports.findProcessedData = (beginTime, endTime)->
     return result
 
 #更新
-exports.updateTestData= (name,status,processDate)->
+exports.updateTestData= (name,status,processDate,clientId)->
   whenjs().then ()->
     getByName(name)
   .then (dbTestData)->
@@ -128,6 +133,9 @@ exports.updateTestData= (name,status,processDate)->
     if processDate?
       dbTestData.process_date = processDate
       updateFields.push "process_date"
+    if clientId?
+      dbTestData.client_id = clientId
+      updateFields.push "client_id"
 
     dbTestData.save
       fields: updateFields

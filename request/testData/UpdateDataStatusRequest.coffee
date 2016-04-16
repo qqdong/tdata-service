@@ -21,7 +21,8 @@ class UpdateDataStatusRequest extends BaseRequest
     @name = params.name
     @status=params.status
     @process_date=params.process_date
-    throw  errorCode.commonError.parameterError unless not Validator.isNullOrEmpty(@name, @status, @process_date)
+    @client_id=params.client_id
+    throw  errorCode.commonError.parameterError unless not Validator.isNullOrEmpty(@name, @status, @process_date,@client_id)
     throw  errorCode.testDataError.statusError unless  parseInt(@status)==TestDataStatus.Status.Successed or parseInt(@status)==TestDataStatus.Status.Failed or parseInt(@status)==TestDataStatus.Status.Slow
 
 
@@ -30,7 +31,7 @@ class UpdateDataStatusRequest extends BaseRequest
     TDataSequelize.transaction()
     .then (trans)->
       TestDataModel testDataModel=new TestDataModel()
-      testDataModel.updateStatus(request.name,request.status,request.process_date)
+      testDataModel.updateStatus(request.name,request.status,request.process_date,request.client_id)
       .then ()->
         trans.commit()
         return {}
