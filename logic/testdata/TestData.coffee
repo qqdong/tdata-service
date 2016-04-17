@@ -30,6 +30,9 @@ class TestData
   getProcessDate: ()->
     return @tableTestData.getDataValue('process_date')
 
+  getClientId:()->
+    return @tableTestData.getDataValue('client_id')
+
   getUploadDateStr: ()->
     uploadDate=@getUploadDate()
     return moment(uploadDate).format('YYYY-MM-DD HH:mm:ss')

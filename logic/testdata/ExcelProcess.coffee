@@ -32,6 +32,7 @@ class ExcelProcess
         {caption:'status', type:'number', width:20},
         {caption:'uploadDate', type:'string', width:100},
         {caption:'processDate', type:'string', width:100},
+        {caption:'clientId', type:'string', width:100}
       ]
       conf.rows =rows
 
